@@ -726,6 +726,8 @@ public class StudentInfoForm extends JFrame {
 
         // Find recommended subjects
         List<Subject> recommendedSubjects = new ArrayList<>();
+        int totalUnits = 0; // Track total units of recommended subjects
+
         for (Subject subject : allSubjects) {
             // Skip subjects already passed or currently taking
             if (passedSubjects.contains(subject.getCode()) || currentSubjects.contains(subject.getCode())) {
@@ -741,8 +743,15 @@ public class StudentInfoForm extends JFrame {
                 }
             }
 
-            if (prerequisitesMet) {
+            // Add subject to recommendations if prerequisites are met and total units <= 21
+            if (prerequisitesMet && (totalUnits + subject.getUnits() <= 21)) {
                 recommendedSubjects.add(subject);
+                totalUnits += subject.getUnits(); // Update total units
+            }
+
+            // Stop if total units reach or exceed 21
+            if (totalUnits >= 21) {
+                break;
             }
         }
 
@@ -795,6 +804,12 @@ public class StudentInfoForm extends JFrame {
                 recommendationsPanel.add(rowPanel);
                 recommendationsPanel.add(Box.createVerticalStrut(2));
             }
+
+            // Display total units
+            JLabel totalUnitsLabel = new JLabel("Total Units: " + totalUnits);
+            totalUnitsLabel.setAlignmentX(Component.CENTER_ALIGNMENT);
+            recommendationsPanel.add(Box.createVerticalStrut(10));
+            recommendationsPanel.add(totalUnitsLabel);
         }
 
         // Show the dialog
