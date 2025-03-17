@@ -849,69 +849,91 @@ public class StudentInfoForm extends JFrame {
         mainPanel.setLayout(new BorderLayout(10, 10));
         mainPanel.setBorder(new EmptyBorder(20, 20, 20, 20));
 
+        // Set a school-like background color
+        mainPanel.setBackground(new Color(240, 240, 240)); // Light gray
+
         // Form panel with grid layout
         JPanel formPanel = new JPanel(new GridBagLayout());
+        formPanel.setBackground(new Color(255, 255, 255)); // White background
+        formPanel.setBorder(BorderFactory.createCompoundBorder(
+                BorderFactory.createLineBorder(new Color(0, 51, 102), 2), // Navy blue border
+                new EmptyBorder(15, 15, 15, 15) // Padding
+        ));
+
         GridBagConstraints gbc = new GridBagConstraints();
         gbc.fill = GridBagConstraints.HORIZONTAL;
         gbc.insets = new Insets(5, 5, 5, 5);
 
-        // Add name components
+        // Add title label
+        JLabel titleLabel = new JLabel("Student Information Form", JLabel.CENTER);
+        titleLabel.setFont(new Font("Georgia", Font.BOLD, 24));
+        titleLabel.setForeground(new Color(0, 51, 102)); // Navy blue
         gbc.gridx = 0;
         gbc.gridy = 0;
+        gbc.gridwidth = 2;
+        gbc.anchor = GridBagConstraints.CENTER;
+        formPanel.add(titleLabel, gbc);
+
+        // Reset grid width
+        gbc.gridwidth = 1;
+
+        // Add name components
+        gbc.gridx = 0;
+        gbc.gridy = 1;
         formPanel.add(new JLabel("Student Name:"), gbc);
 
         gbc.gridx = 1;
-        gbc.gridy = 0;
+        gbc.gridy = 1;
         gbc.weightx = 1.0;
         formPanel.add(nameField, gbc);
 
         // Add ID components
         gbc.gridx = 0;
-        gbc.gridy = 1;
+        gbc.gridy = 2;
         gbc.weightx = 0.0;
         formPanel.add(new JLabel("Student ID:"), gbc);
 
         gbc.gridx = 1;
-        gbc.gridy = 1;
+        gbc.gridy = 2;
         gbc.weightx = 1.0;
         formPanel.add(idField, gbc);
 
+        // Add program components
         gbc.gridx = 0;
-        gbc.gridy = 2;
+        gbc.gridy = 3;
         gbc.weightx = 0.0;
         formPanel.add(new JLabel("Program:"), gbc);
 
         gbc.gridx = 1;
-        gbc.gridy = 2;
+        gbc.gridy = 3;
         gbc.weightx = 1.0;
         formPanel.add(programComboBox, gbc);
 
-
         // Add year components
         gbc.gridx = 0;
-        gbc.gridy = 3;
+        gbc.gridy = 4;
         gbc.weightx = 0.0;
         formPanel.add(new JLabel("Year Level:"), gbc);
 
         gbc.gridx = 1;
-        gbc.gridy = 3;
+        gbc.gridy = 4;
         gbc.weightx = 1.0;
         formPanel.add(yearComboBox, gbc);
 
         // Add semester components
         gbc.gridx = 0;
-        gbc.gridy = 4;
+        gbc.gridy = 5;
         gbc.weightx = 0.0;
         formPanel.add(new JLabel("Semester:"), gbc);
 
         gbc.gridx = 1;
-        gbc.gridy = 4;
+        gbc.gridy = 5;
         gbc.weightx = 1.0;
         formPanel.add(semesterComboBox, gbc);
 
         // Add subjects taken components with a button
         gbc.gridx = 0;
-        gbc.gridy = 5;
+        gbc.gridy = 6;
         gbc.weightx = 0.0;
         JLabel subjectsLabel = new JLabel("Number of Subjects Taken Recently:");
         formPanel.add(subjectsLabel, gbc);
@@ -920,19 +942,21 @@ public class StudentInfoForm extends JFrame {
         subjectsPanel.add(subjectsTakenField);
 
         JButton generateButton = new JButton("Generate Fields");
+        generateButton.setBackground(new Color(0, 51, 102)); // Navy blue
+        generateButton.setForeground(Color.BLACK); // White text
         generateButton.addActionListener(e -> generateSubjectInputFields());
         subjectsPanel.add(generateButton);
 
         subjectsPanel.add(clearFieldsButton);
 
         gbc.gridx = 1;
-        gbc.gridy = 5;
+        gbc.gridy = 6;
         gbc.weightx = 1.0;
         formPanel.add(subjectsPanel, gbc);
 
         // Add subject history panel
         gbc.gridx = 0;
-        gbc.gridy = 6;
+        gbc.gridy = 7;
         gbc.gridwidth = 2;
         gbc.weightx = 1.0;
         gbc.weighty = 1.0;
@@ -948,20 +972,15 @@ public class StudentInfoForm extends JFrame {
         JButton submitButton = new JButton("Submit");
         JButton viewRecommendationsButton = new JButton("View Recommendations");
 
-        // Add action listeners
-        submitButton.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                submitForm();
-            }
-        });
+        // Style buttons
+        submitButton.setBackground(new Color(0, 51, 102)); // Navy blue
+        submitButton.setForeground(Color.BLACK); // White text
+        viewRecommendationsButton.setBackground(new Color(0, 51, 102)); // Navy blue
+        viewRecommendationsButton.setForeground(Color.BLACK); // White text
 
-        viewRecommendationsButton.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                checkForRecommendations();
-            }
-        });
+        // Add action listeners
+        submitButton.addActionListener(e -> submitForm());
+        viewRecommendationsButton.addActionListener(e -> checkForRecommendations());
 
         buttonPanel.add(submitButton);
         buttonPanel.add(viewRecommendationsButton);
